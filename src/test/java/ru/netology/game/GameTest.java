@@ -6,40 +6,43 @@ import org.junit.jupiter.api.Test;
 import ru.netology.data.Player;
 import ru.netology.exceptions.NotRegisteredException;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 
 public class GameTest {
     Player p1 = new Player(1, "lalka1", 10);
     Player p2 = new Player(2, "lalka2", 8);
     Player p3 = new Player(3, "lalka3", 10);
     Player p4 = new Player(4, "lalka4", 11);
-    Collection<Player> players = new ArrayList<>();
+    HashMap<String, Player> players = new HashMap<>();
     Game newGame = new Game(players);
 
     @Test
-    void shouldRegisterPlayersToEmptyCollection() {
-        newGame.register(p1);
-
-        Collection<Player> ar = newGame.findAll();
-        Collection<Player> er = Arrays.asList(p1);
-        assertEquals(er, ar);
-    }
-
-    @Test
-    void shouldRegisterPlayersToNotEmptyCollection() {
+    void shouldRegisterPlayersToNotEmptyMap() {
         newGame.register(p1);
         newGame.register(p2);
         newGame.register(p4);
 
-        Collection<Player> ar = newGame.findAll();
-        Collection<Player> er = Arrays.asList(p1, p2, p4);
+        HashMap<String, Player> ar = newGame.findAll();
+        HashMap<String, Player> er = new HashMap<>();
+        er.put("lalka1", p1);
+        er.put("lalka2", p2);
+        er.put("lalka4", p4);
+        assertEquals(er, ar);
+    }
+    @Test
+    void shouldRegisterPlayersToEmptyMap() {
+        newGame.register(p1);
+
+        HashMap<String, Player> ar = newGame.findAll();
+        HashMap<String, Player> er = new HashMap<>();
+        er.put("lalka1", p1);
         assertEquals(er, ar);
     }
 
     @Test
-    void shouldFindByNameFromRegisteredCollection() {
+    void shouldFindByNameFromRegisteredMap() {
         newGame.register(p1);
         newGame.register(p2);
 
@@ -120,4 +123,5 @@ public class GameTest {
         });
         assertNotNull(thrown.getMessage());
     }
+
 }
