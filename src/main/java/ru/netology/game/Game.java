@@ -28,14 +28,14 @@ public class Game {
     }
 
     public int round(String playerName1, String playerName2) throws NotRegisteredException {
-        Player p1 = this.findByName(playerName1);
-        Player p2 = this.findByName(playerName2);
-        if (!nameAndPlayer.containsKey(p1.getName())) {
+        if (!nameAndPlayer.containsKey(playerName1)) {
             throw new NotRegisteredException("Игрок с именем:" + playerName1 + " не зарегистрирован!");
         }
-        if (!nameAndPlayer.containsKey(p2.getName())) {
+        if (!nameAndPlayer.containsKey(playerName2)) {
             throw new NotRegisteredException("Игрок с именем:" + playerName2 + " не зарегистрирован!");
         }
+        Player p1 = this.findByName(playerName1);
+        Player p2 = this.findByName(playerName2);
         if (p1.getStrength() == p2.getStrength()) return 0;
         if (p1.getStrength() > p2.getStrength()) return 1;
         else return 2;

@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import ru.netology.data.Player;
 import ru.netology.exceptions.NotRegisteredException;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 
 public class GameTest {
@@ -55,9 +53,7 @@ public class GameTest {
     void shouldThrowExceptionWhenFindByNameWithWrongAttribute() {
         newGame.register(p1);
         newGame.register(p2);
-        assertThrows(NotRegisteredException.class, () -> {
-            newGame.findByName("INVALID_NAME");
-        });
+        assertThrows(NotRegisteredException.class, () -> newGame.findByName("INVALID_NAME"));
     }
     @Test
     void shouldReturnPlayer1Wins(){
@@ -90,26 +86,21 @@ public class GameTest {
     void shouldThrowExceptionWhenRoundWithWrongFirstName() {
         newGame.register(p1);
         newGame.register(p2);
-        assertThrows(NotRegisteredException.class, () -> {
-            newGame.round("ASDASD","lalka2");
-        });
+        assertThrows(NotRegisteredException.class, () -> newGame.round("ASDASD","lalka2"));
     }
     @Test
     void shouldThrowExceptionWhenRoundWithWrongSecondName() {
         newGame.register(p1);
         newGame.register(p2);
-        assertThrows(NotRegisteredException.class, () -> {
-            newGame.round("lalka1","QWERTY");
-        });
+        assertThrows(NotRegisteredException.class, () -> newGame.round("lalka1","QWERTY"));
     }
 
     @Test
     void shouldThrowSameExceptionText(){
         newGame.register(p1);
         newGame.register(p2);
-        NotRegisteredException exception = assertThrows(NotRegisteredException.class, () -> {
-            newGame.round("qwe","lalka2");
-        });
+        NotRegisteredException exception = assertThrows(NotRegisteredException.class, () ->
+                newGame.round("qwe","lalka2"));
         String expectedMessage = "Игрок с именем:" + "qwe" + " не зарегистрирован!";
         String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
@@ -118,10 +109,8 @@ public class GameTest {
     @Test
     void justCantGetRatio(){
         newGame.register(p1);
-        Throwable thrown = assertThrows(NotRegisteredException.class, () -> {
-           newGame.round("lalka1","asd");
-        });
+        Throwable thrown = assertThrows(NotRegisteredException.class, () ->
+                newGame.round("lalka1","asd"));
         assertNotNull(thrown.getMessage());
     }
-
 }
