@@ -100,4 +100,24 @@ public class GameTest {
         });
     }
 
+    @Test
+    void shouldThrowSameExceptionText(){
+        newGame.register(p1);
+        newGame.register(p2);
+        NotRegisteredException exception = assertThrows(NotRegisteredException.class, () -> {
+            newGame.round("qwe","lalka2");
+        });
+        String expectedMessage = "Игрок с именем:" + "qwe" + " не зарегистрирован!";
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    @Test
+    void justCantGetRatio(){
+        newGame.register(p1);
+        Throwable thrown = assertThrows(NotRegisteredException.class, () -> {
+           newGame.round("lalka1","asd");
+        });
+        assertNotNull(thrown.getMessage());
+    }
 }
